@@ -1776,11 +1776,8 @@ textarea.form-control { resize: vertical; min-height: 80px; }
           </div>
         </div>
 
+        <div id="trend-dam-bringinsila">
         <div class="card mb-16">
-          <div class="card-header">
-            <div>
-              <div class="card-title">Tren Tinggi Muka Air (TMA) — 30 Hari Terakhir</div>
-              <div class="card-meta">Bringin Sila · Pos AWLR · dengan garis batas waspada HWL</div>
             </div>
             <div class="flex gap-10 items-center">
               <div class="forecast-legend">
@@ -2134,82 +2131,167 @@ textarea.form-control { resize: vertical; min-height: 80px; }
             </div>
           </div>
         </div>
+      </div><!-- end page-trend -->
+
+      <!-- ══════════════ PAGE: ALERTS ══════════════ -->
       <div class="page" id="page-alerts">
         <div class="breadcrumb"><a onclick="showPage('dashboard')">Dashboard</a><span>›</span><strong>Alert & Notifikasi</strong></div>
 
         <div class="flex justify-between items-center mb-16 flex-wrap gap-10">
           <div class="alert-filter-row" style="margin:0">
-            <button class="alert-filter-btn active">Semua (34)</button>
-            <button class="alert-filter-btn">Kritis (8)</button>
-            <button class="alert-filter-btn">Warning (26)</button>
-            <button class="alert-filter-btn">Belum Dibaca</button>
+            <button class="alert-filter-btn active" onclick="filterAlerts('all',this)">Semua (10)</button>
+            <button class="alert-filter-btn" onclick="filterAlerts('kritis',this)">Kritis (3)</button>
+            <button class="alert-filter-btn" onclick="filterAlerts('warning',this)">Warning (5)</button>
+            <button class="alert-filter-btn" onclick="filterAlerts('unread',this)">Belum Dibaca (6)</button>
           </div>
-          <button class="btn sm primary">✓ Tandai Semua Dibaca</button>
+          <button class="btn sm primary" onclick="markAllRead()">✓ Tandai Semua Dibaca</button>
         </div>
 
         <div class="card">
           <div class="card-header">
             <div class="card-title">Daftar Alert Aktif</div>
-            <span class="badge badge-red">34 Alert</span>
+            <span class="badge badge-red" id="alertCountBadge">10 Alert</span>
           </div>
-          <div>
-            <div class="alert-row">
+          <div id="alertList">
+
+            <!-- 1 KRITIS UNREAD -->
+            <div class="alert-row" data-severity="kritis" data-read="unread">
               <div class="alert-severity" style="background:var(--red)"></div>
               <div class="alert-body">
                 <div class="alert-title">🚨 TMA Mendekati HWL — Pos AWLR Pandanduri</div>
-                <div class="alert-desc">Tinggi muka air saat ini 117.21 mdpl, mendekati batas waspada HWL 117.50 mdpl. Selisih: 0.29 m.</div>
-                <div class="alert-meta">🕒 11:32 · Bendungan Pandanduri · Pos AWLR · <span class="badge badge-red" style="font-size:9px">Belum Dibaca</span></div>
+                <div class="alert-desc">Tinggi muka air saat ini 117,21 mdpl, mendekati batas waspada HWL 117,50 mdpl. Selisih hanya 0,29 m. Pantau terus menerus dan siapkan tim lapangan.</div>
+                <div class="alert-meta">🕒 11:32 WITA · Bendungan Pandanduri · Pos AWLR · <span class="badge badge-red" style="font-size:10px;padding:2px 7px">Belum Dibaca</span></div>
               </div>
               <div class="alert-actions">
-                <button class="btn sm danger">Tangani</button>
+                <button class="btn sm danger" onclick="handleAlert(this)">Tangani</button>
                 <button class="btn sm">Detail</button>
               </div>
             </div>
-            <div class="alert-row">
+
+            <!-- 2 KRITIS UNREAD -->
+            <div class="alert-row" data-severity="kritis" data-read="unread">
               <div class="alert-severity" style="background:var(--red)"></div>
               <div class="alert-body">
-                <div class="alert-title">🚨 Piezometer EP14 Melebihi Batas — Bringin Sila STA.0+180</div>
-                <div class="alert-desc">Tekanan pori EP14 tercatat 0.048 MPa, melampaui threshold 0.040 MPa. Perlu inspeksi lapangan segera.</div>
-                <div class="alert-meta">🕒 10:55 · Bendungan Bringin Sila · STA. 0+180 · <span class="badge badge-red" style="font-size:9px">Belum Dibaca</span></div>
+                <div class="alert-title">🚨 Piezometer EP14 Melebihi Batas — Bringin Sila STA. 0+180</div>
+                <div class="alert-desc">Tekanan pori EP14 tercatat 0,048 MPa, melampaui threshold 0,040 MPa. Selisih +0,008 MPa. Perlu inspeksi lapangan segera untuk menghindari risiko piping.</div>
+                <div class="alert-meta">🕒 10:55 WITA · Bendungan Bringin Sila · STA. 0+180 · <span class="badge badge-red" style="font-size:10px;padding:2px 7px">Belum Dibaca</span></div>
               </div>
               <div class="alert-actions">
-                <button class="btn sm danger">Tangani</button>
+                <button class="btn sm danger" onclick="handleAlert(this)">Tangani</button>
                 <button class="btn sm">Detail</button>
               </div>
             </div>
-            <div class="alert-row">
+
+            <!-- 3 KRITIS UNREAD -->
+            <div class="alert-row" data-severity="kritis" data-read="unread">
+              <div class="alert-severity" style="background:var(--red)"></div>
+              <div class="alert-body">
+                <div class="alert-title">🚨 Piezometer EP39 Kritis — Bringin Sila STA. 0+240</div>
+                <div class="alert-desc">EP39 di STA. 0+240 mencatat 0,052 MPa — melebihi threshold 0,040 MPa. Dua sensor kritis aktif secara bersamaan memerlukan investigasi segera.</div>
+                <div class="alert-meta">🕒 10:38 WITA · Bendungan Bringin Sila · STA. 0+240 · <span class="badge badge-red" style="font-size:10px;padding:2px 7px">Belum Dibaca</span></div>
+              </div>
+              <div class="alert-actions">
+                <button class="btn sm danger" onclick="handleAlert(this)">Tangani</button>
+                <button class="btn sm">Detail</button>
+              </div>
+            </div>
+
+            <!-- 4 WARNING UNREAD -->
+            <div class="alert-row" data-severity="warning" data-read="unread">
               <div class="alert-severity" style="background:var(--amber)"></div>
               <div class="alert-body">
                 <div class="alert-title">⚠ Logger Offline — 3 POS Meninting</div>
-                <div class="alert-desc">POS Cuaca, POS Peilschaal, dan POS ARR Meninting tidak mengirimkan data selama 2+ jam. Kemungkinan gangguan komunikasi.</div>
-                <div class="alert-meta">🕒 10:15 · Bendungan Meninting · Komunikasi Logger</div>
+                <div class="alert-desc">POS Cuaca, POS Peilschaal, dan POS ARR Meninting tidak mengirimkan data selama 2+ jam. Kemungkinan gangguan komunikasi GSM atau pemadaman daya solar panel.</div>
+                <div class="alert-meta">🕒 10:15 WITA · Bendungan Meninting · Komunikasi Logger · <span class="badge badge-amber" style="font-size:10px;padding:2px 7px">Belum Dibaca</span></div>
               </div>
               <div class="alert-actions">
+                <button class="btn sm">Tangani</button>
                 <button class="btn sm">Detail</button>
               </div>
             </div>
-            <div class="alert-row">
+
+            <!-- 5 WARNING UNREAD -->
+            <div class="alert-row" data-severity="warning" data-read="unread">
               <div class="alert-severity" style="background:var(--amber)"></div>
               <div class="alert-body">
                 <div class="alert-title">⚠ Tegangan Battery Rendah — V-Notch Bringin Sila</div>
-                <div class="alert-desc">Battery logger Pos V-Notch terbaca 11.80V, di bawah ambang batas normal 12.0V. Diperlukan pengecekan panel surya/charger.</div>
-                <div class="alert-meta">🕒 09:48 · Bendungan Bringin Sila · Pos V-Notch · Hardware</div>
+                <div class="alert-desc">Battery logger Pos V-Notch terbaca 11,80 V, di bawah ambang batas normal 12,0 V. Diperlukan pengecekan panel surya dan controller charger sebelum daya habis.</div>
+                <div class="alert-meta">🕒 09:48 WITA · Bendungan Bringin Sila · Pos V-Notch · Hardware · <span class="badge badge-amber" style="font-size:10px;padding:2px 7px">Belum Dibaca</span></div>
               </div>
               <div class="alert-actions">
+                <button class="btn sm">Tangani</button>
                 <button class="btn sm">Detail</button>
               </div>
             </div>
-            <div class="alert-row">
+
+            <!-- 6 WARNING UNREAD -->
+            <div class="alert-row" data-severity="warning" data-read="unread">
               <div class="alert-severity" style="background:var(--amber)"></div>
               <div class="alert-body">
                 <div class="alert-title">⚠ Intensitas Curah Hujan Tinggi — Tiu Suntuk</div>
-                <div class="alert-desc">ARR Tiu Suntuk mencatat curah hujan 45mm/jam. Pantau TMA secara intensif.</div>
-                <div class="alert-meta">🕒 08:30 · Bendungan Tiu Suntuk · Pos ARR · Cuaca</div>
+                <div class="alert-desc">ARR Tiu Suntuk mencatat intensitas curah hujan 45 mm/jam sejak pukul 08:15 WITA. Pantau TMA secara intensif karena potensi kenaikan muka air cepat.</div>
+                <div class="alert-meta">🕒 08:30 WITA · Bendungan Tiu Suntuk · Pos ARR · Cuaca</div>
+              </div>
+              <div class="alert-actions">
+                <button class="btn sm">Tangani</button>
+                <button class="btn sm">Detail</button>
+              </div>
+            </div>
+
+            <!-- 7 WARNING READ -->
+            <div class="alert-row" data-severity="warning" data-read="read">
+              <div class="alert-severity" style="background:var(--amber)"></div>
+              <div class="alert-body">
+                <div class="alert-title">⚠ Humidity Logger Tinggi — AWLR Bringin Sila</div>
+                <div class="alert-desc">Kelembaban di dalam box logger AWLR Bringin Sila mencapai 85%, melampaui batas 80%. Kondensasi dapat merusak komponen elektronik. Periksa seal box dan silica gel.</div>
+                <div class="alert-meta">🕒 07:45 WITA · Bendungan Bringin Sila · Pos AWLR · Hardware</div>
               </div>
               <div class="alert-actions">
                 <button class="btn sm">Detail</button>
               </div>
             </div>
+
+            <!-- 8 WARNING READ -->
+            <div class="alert-row" data-severity="warning" data-read="read">
+              <div class="alert-severity" style="background:var(--amber)"></div>
+              <div class="alert-body">
+                <div class="alert-title">⚠ Kalibrasi Jatuh Tempo — Sensor Curah Hujan Meninting</div>
+                <div class="alert-desc">Sensor ARR Meninting (S-RAIN-02) melewati jadwal kalibrasi sejak 02 Mar 2024. Drift data terdeteksi. Segera jadwalkan kalibrasi ulang untuk memastikan akurasi data.</div>
+                <div class="alert-meta">🕒 Kemarin, 14:00 WITA · Bendungan Meninting · Manajemen Kalibrasi</div>
+              </div>
+              <div class="alert-actions">
+                <button class="btn sm primary" onclick="showPage('calibration')">Ke Kalibrasi</button>
+                <button class="btn sm">Detail</button>
+              </div>
+            </div>
+
+            <!-- 9 INFO READ -->
+            <div class="alert-row" data-severity="info" data-read="read">
+              <div class="alert-severity" style="background:var(--accent)"></div>
+              <div class="alert-body">
+                <div class="alert-title">ℹ Data Manual Peilschaal Bringin Sila Tervalidasi</div>
+                <div class="alert-desc">Pembacaan Peilschaal pukul 08:00 WITA oleh Operator 1 (116,10 mdpl) telah divalidasi oleh Supervisor. Data sudah masuk ke database resmi.</div>
+                <div class="alert-meta">🕒 09:10 WITA · Validasi Data Manual · Bendungan Bringin Sila</div>
+              </div>
+              <div class="alert-actions">
+                <button class="btn sm">Detail</button>
+              </div>
+            </div>
+
+            <!-- 10 INFO READ -->
+            <div class="alert-row" data-severity="info" data-read="read">
+              <div class="alert-severity" style="background:var(--accent)"></div>
+              <div class="alert-body">
+                <div class="alert-title">ℹ Laporan Harian Otomatis Berhasil Digenerate</div>
+                <div class="alert-desc">Laporan monitoring harian tanggal 26 Apr 2026 telah berhasil dibuat secara otomatis. File tersedia untuk diunduh di menu Riwayat Data.</div>
+                <div class="alert-meta">🕒 Kemarin, 23:00 WITA · Sistem · Laporan Otomatis</div>
+              </div>
+              <div class="alert-actions">
+                <button class="btn sm primary" onclick="showPage('history')">Unduh Laporan</button>
+                <button class="btn sm">Detail</button>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -2299,39 +2381,221 @@ textarea.form-control { resize: vertical; min-height: 80px; }
       <!-- ══════════════ PAGE: CALIBRATION ══════════════ -->
       <div class="page" id="page-calibration">
         <div class="breadcrumb"><a onclick="showPage('dashboard')">Dashboard</a><span>›</span>Konfigurasi<span>›</span><strong>Manajemen Kalibrasi</strong></div>
+
+        <!-- Summary cards -->
+        <div class="grid-4 mb-16">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)">
+            <div style="font-size:13px;color:var(--text2);font-weight:600;margin-bottom:6px">Total Instrumen</div>
+            <div style="font-size:28px;font-weight:700;line-height:1">12</div>
+            <div style="font-size:12px;color:var(--text3);margin-top:6px">Terdaftar dalam sistem</div>
+          </div>
+          <div style="background:var(--green-bg);border:1px solid rgba(22,163,74,0.2);border-radius:var(--radius);padding:14px 16px">
+            <div style="font-size:13px;color:var(--green);font-weight:600;margin-bottom:6px">Akurat / Terkalibrasi</div>
+            <div style="font-size:28px;font-weight:700;color:var(--green);line-height:1">7</div>
+            <div style="font-size:12px;color:var(--text3);margin-top:6px">Tidak ada masalah</div>
+          </div>
+          <div style="background:var(--amber-bg);border:1px solid rgba(217,119,6,0.2);border-radius:var(--radius);padding:14px 16px">
+            <div style="font-size:13px;color:var(--amber);font-weight:600;margin-bottom:6px">Mendekati Jadwal</div>
+            <div style="font-size:28px;font-weight:700;color:var(--amber);line-height:1">3</div>
+            <div style="font-size:12px;color:var(--text3);margin-top:6px">Perlu dijadwalkan</div>
+          </div>
+          <div style="background:var(--red-bg);border:1px solid rgba(220,38,38,0.2);border-radius:var(--radius);padding:14px 16px">
+            <div style="font-size:13px;color:var(--red);font-weight:600;margin-bottom:6px">Terlewat / Drift</div>
+            <div style="font-size:28px;font-weight:700;color:var(--red);line-height:1">2</div>
+            <div style="font-size:12px;color:var(--text3);margin-top:6px">Segera kalibrasi ulang</div>
+          </div>
+        </div>
+
         <div class="card">
           <div class="card-header">
-            <div><div class="card-title">Daftar Instrumen & Status Kalibrasi</div><div class="card-meta">Pantau jadwal kalibrasi dan offset sensor</div></div>
+            <div><div class="card-title">Daftar Instrumen & Status Kalibrasi</div><div class="card-meta">Pantau jadwal kalibrasi dan offset sensor · 12 instrumen terdaftar</div></div>
             <button class="btn sm primary">+ Jadwalkan Kalibrasi</button>
           </div>
           <div class="table-wrap">
             <table class="data-table">
-              <thead><tr><th>ID Sensor</th><th>Lokasi</th><th>Parameter</th><th>Kalibrasi Terakhir</th><th>Jatuh Tempo</th><th>Offset Saat Ini</th><th>Status</th><th>Aksi</th></tr></thead>
+              <thead><tr><th>#</th><th>ID Sensor</th><th>Nama Instrumen</th><th>Lokasi / Bendungan</th><th>Parameter</th><th>Kalibrasi Terakhir</th><th>Jatuh Tempo</th><th>Offset Saat Ini</th><th>Akurasi (%)</th><th>Status</th><th>Aksi</th></tr></thead>
               <tbody>
+
+                <!-- 1 -->
                 <tr>
-                  <td class="mono">S-AWLR-01</td><td>Bringin Sila</td><td>Level Air</td><td>10 Jan 2026</td><td>10 Jul 2026</td>
-                  <td class="mono">+0.02 m</td>
+                  <td class="mono" style="color:var(--text3)">01</td>
+                  <td class="mono" style="font-weight:600">S-AWLR-01</td>
+                  <td style="color:var(--text)">AWLR Pos Utama</td>
+                  <td>Bringin Sila</td>
+                  <td>Level Air (mdpl)</td>
+                  <td class="mono">10 Jan 2026</td>
+                  <td class="mono">10 Jul 2026</td>
+                  <td class="mono">+0,02 m</td>
+                  <td class="mono" style="color:var(--green);font-weight:600">99,8%</td>
                   <td><span class="badge badge-green">Akurat</span></td>
                   <td><button class="btn sm">Ubah Offset</button></td>
                 </tr>
+
+                <!-- 2 -->
                 <tr>
-                  <td class="mono">S-PZ-10</td><td>Bringin Sila</td><td>Piezometer</td><td>15 Okt 2025</td><td>15 Mei 2026</td>
-                  <td class="mono">-0.001 MPa</td>
-                  <td><span class="badge badge-amber">Mendekati Jadwal</span></td>
+                  <td class="mono" style="color:var(--text3)">02</td>
+                  <td class="mono" style="font-weight:600">S-AWLR-02</td>
+                  <td style="color:var(--text)">AWLR Pandanduri</td>
+                  <td>Pandanduri</td>
+                  <td>Level Air (mdpl)</td>
+                  <td class="mono">22 Feb 2026</td>
+                  <td class="mono">22 Agu 2026</td>
+                  <td class="mono">+0,01 m</td>
+                  <td class="mono" style="color:var(--green);font-weight:600">99,9%</td>
+                  <td><span class="badge badge-green">Akurat</span></td>
+                  <td><button class="btn sm">Ubah Offset</button></td>
+                </tr>
+
+                <!-- 3 -->
+                <tr>
+                  <td class="mono" style="color:var(--text3)">03</td>
+                  <td class="mono" style="font-weight:600">S-PZ-10</td>
+                  <td style="color:var(--text)">Piezometer EP10</td>
+                  <td>Bringin Sila · STA.0+180</td>
+                  <td>Tekanan Pori (MPa)</td>
+                  <td class="mono">15 Okt 2025</td>
+                  <td class="mono" style="color:var(--amber);font-weight:600">15 Mei 2026 ⚠</td>
+                  <td class="mono">-0,001 MPa</td>
+                  <td class="mono" style="color:var(--amber);font-weight:600">97,2%</td>
+                  <td><span class="badge badge-amber">Mendekati</span></td>
                   <td><button class="btn sm primary">Jadwalkan</button></td>
                 </tr>
+
+                <!-- 4 -->
+                <tr>
+                  <td class="mono" style="color:var(--text3)">04</td>
+                  <td class="mono" style="font-weight:600">S-PZ-14</td>
+                  <td style="color:var(--text)">Piezometer EP14 ⚠</td>
+                  <td>Bringin Sila · STA.0+180</td>
+                  <td>Tekanan Pori (MPa)</td>
+                  <td class="mono">10 Okt 2025</td>
+                  <td class="mono" style="color:var(--amber);font-weight:600">10 Mei 2026 ⚠</td>
+                  <td class="mono">-0,002 MPa</td>
+                  <td class="mono" style="color:var(--amber);font-weight:600">96,8%</td>
+                  <td><span class="badge badge-amber">Mendekati</span></td>
+                  <td><button class="btn sm primary">Jadwalkan</button></td>
+                </tr>
+
+                <!-- 5 -->
                 <tr style="background:var(--red-light)">
-                  <td class="mono">S-RAIN-02</td><td>Meninting</td><td>Curah Hujan</td><td>02 Mar 2024</td><td><strong style="color:var(--red)">Terlewat</strong></td>
-                  <td class="mono">0.00 mm</td>
+                  <td class="mono" style="color:var(--text3)">05</td>
+                  <td class="mono" style="font-weight:600;color:var(--red)">S-RAIN-02</td>
+                  <td style="color:var(--red);font-weight:600">ARR Meninting ⚠</td>
+                  <td>Meninting</td>
+                  <td>Curah Hujan (mm)</td>
+                  <td class="mono">02 Mar 2024</td>
+                  <td class="mono"><strong style="color:var(--red)">Terlewat 13 Bln</strong></td>
+                  <td class="mono" style="color:var(--red)">0,00 mm (drift)</td>
+                  <td class="mono" style="color:var(--red);font-weight:600">88,1%</td>
                   <td><span class="badge badge-red">Drift Terdeteksi</span></td>
                   <td><button class="btn sm danger">Kalibrasi Ulang</button></td>
                 </tr>
+
+                <!-- 6 -->
                 <tr>
-                  <td class="mono">S-FLO-01</td><td>Bringin Sila</td><td>Flowmeter</td><td>05 Feb 2026</td><td>05 Agu 2026</td>
-                  <td class="mono">+0.5 m³/dt</td>
+                  <td class="mono" style="color:var(--text3)">06</td>
+                  <td class="mono" style="font-weight:600">S-FLO-01</td>
+                  <td style="color:var(--text)">Flowmeter V-Notch</td>
+                  <td>Bringin Sila</td>
+                  <td>Debit Rembesan (l/dtk)</td>
+                  <td class="mono">05 Feb 2026</td>
+                  <td class="mono">05 Agu 2026</td>
+                  <td class="mono">+0,5 l/dtk</td>
+                  <td class="mono" style="color:var(--green);font-weight:600">99,1%</td>
                   <td><span class="badge badge-green">Akurat</span></td>
                   <td><button class="btn sm">Ubah Offset</button></td>
                 </tr>
+
+                <!-- 7 -->
+                <tr>
+                  <td class="mono" style="color:var(--text3)">07</td>
+                  <td class="mono" style="font-weight:600">S-AWLR-03</td>
+                  <td style="color:var(--text)">AWLR Tiu Suntuk</td>
+                  <td>Tiu Suntuk</td>
+                  <td>Level Air (mdpl)</td>
+                  <td class="mono">18 Mar 2026</td>
+                  <td class="mono">18 Sep 2026</td>
+                  <td class="mono">-0,01 m</td>
+                  <td class="mono" style="color:var(--green);font-weight:600">99,7%</td>
+                  <td><span class="badge badge-green">Akurat</span></td>
+                  <td><button class="btn sm">Ubah Offset</button></td>
+                </tr>
+
+                <!-- 8 -->
+                <tr>
+                  <td class="mono" style="color:var(--text3)">08</td>
+                  <td class="mono" style="font-weight:600">S-WS-01</td>
+                  <td style="color:var(--text)">Weather Station Meninting</td>
+                  <td>Meninting</td>
+                  <td>Suhu, Angin, Tekanan</td>
+                  <td class="mono">12 Nov 2025</td>
+                  <td class="mono">12 Mei 2026</td>
+                  <td class="mono">—</td>
+                  <td class="mono" style="color:var(--green);font-weight:600">98,5%</td>
+                  <td><span class="badge badge-green">Akurat</span></td>
+                  <td><button class="btn sm">Detail</button></td>
+                </tr>
+
+                <!-- 9 -->
+                <tr style="background:var(--red-light)">
+                  <td class="mono" style="color:var(--text3)">09</td>
+                  <td class="mono" style="font-weight:600;color:var(--red)">S-RAIN-03</td>
+                  <td style="color:var(--red);font-weight:600">ARR Pandanduri ⚠</td>
+                  <td>Pandanduri</td>
+                  <td>Curah Hujan (mm)</td>
+                  <td class="mono">15 Apr 2024</td>
+                  <td class="mono"><strong style="color:var(--red)">Terlewat 12 Bln</strong></td>
+                  <td class="mono" style="color:var(--red)">+1,2 mm (drift)</td>
+                  <td class="mono" style="color:var(--red);font-weight:600">89,4%</td>
+                  <td><span class="badge badge-red">Drift Terdeteksi</span></td>
+                  <td><button class="btn sm danger">Kalibrasi Ulang</button></td>
+                </tr>
+
+                <!-- 10 -->
+                <tr>
+                  <td class="mono" style="color:var(--text3)">10</td>
+                  <td class="mono" style="font-weight:600">S-PZ-39</td>
+                  <td style="color:var(--text)">Piezometer EP39</td>
+                  <td>Bringin Sila · STA.0+240</td>
+                  <td>Tekanan Pori (MPa)</td>
+                  <td class="mono">20 Des 2025</td>
+                  <td class="mono" style="color:var(--amber);font-weight:600">20 Jun 2026 ⚠</td>
+                  <td class="mono">+0,001 MPa</td>
+                  <td class="mono" style="color:var(--amber);font-weight:600">97,5%</td>
+                  <td><span class="badge badge-amber">Mendekati</span></td>
+                  <td><button class="btn sm primary">Jadwalkan</button></td>
+                </tr>
+
+                <!-- 11 -->
+                <tr>
+                  <td class="mono" style="color:var(--text3)">11</td>
+                  <td class="mono" style="font-weight:600">S-FLO-02</td>
+                  <td style="color:var(--text)">Flowmeter V-Notch Bintang Bano</td>
+                  <td>Bintang Bano</td>
+                  <td>Debit Rembesan (l/dtk)</td>
+                  <td class="mono">08 Jan 2026</td>
+                  <td class="mono">08 Jul 2026</td>
+                  <td class="mono">-0,3 l/dtk</td>
+                  <td class="mono" style="color:var(--green);font-weight:600">98,8%</td>
+                  <td><span class="badge badge-green">Akurat</span></td>
+                  <td><button class="btn sm">Ubah Offset</button></td>
+                </tr>
+
+                <!-- 12 -->
+                <tr>
+                  <td class="mono" style="color:var(--text3)">12</td>
+                  <td class="mono" style="font-weight:600">S-AWLR-04</td>
+                  <td style="color:var(--text)">AWLR Bintang Bano</td>
+                  <td>Bintang Bano</td>
+                  <td>Level Air (mdpl)</td>
+                  <td class="mono">14 Mar 2026</td>
+                  <td class="mono">14 Sep 2026</td>
+                  <td class="mono">0,00 m</td>
+                  <td class="mono" style="color:var(--green);font-weight:600">100%</td>
+                  <td><span class="badge badge-green">Akurat</span></td>
+                  <td><button class="btn sm">Ubah Offset</button></td>
+                </tr>
+
               </tbody>
             </table>
           </div>
@@ -2548,6 +2812,104 @@ const PAGE_TITLES = {
   calibration: ['Manajemen Kalibrasi',       'Pantau jadwal kalibrasi dan konfigurasi offset sensor'],
   user:        ['Manajemen Pengguna',        'Kelola akun dan hak akses tim pengelola bendungan']
 };
+
+/* ════════════════════════════════
+   SENSOR TAB SWITCHING
+════════════════════════════════ */
+function switchSensorTab(type, el) {
+  // Update tab styles
+  document.querySelectorAll('#sensorTabRow .tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+
+  // Show/hide detail panels
+  const allDetail   = document.getElementById('sensor-detail-all');
+  const awlrDetail  = document.getElementById('sensor-detail-awlr');
+  const vnotchDetail= document.getElementById('sensor-detail-vnotch');
+  const cuacaDetail = document.getElementById('sensor-detail-cuaca');
+  const piezoDetail = document.getElementById('sensor-detail-piezo');
+
+  [allDetail, awlrDetail, vnotchDetail, cuacaDetail, piezoDetail].forEach(d => { if(d) d.style.display = 'none'; });
+
+  if (type === 'all')    { if(allDetail) allDetail.style.display = ''; }
+  else if (type === 'awlr')   { if(awlrDetail) awlrDetail.style.display = ''; }
+  else if (type === 'vnotch') { if(vnotchDetail) vnotchDetail.style.display = ''; }
+  else if (type === 'cuaca')  { if(cuacaDetail) cuacaDetail.style.display = ''; }
+  else if (type === 'piezo')  { if(piezoDetail) piezoDetail.style.display = ''; }
+}
+
+/* ════════════════════════════════
+   STA CROSS SECTION SWITCHING
+════════════════════════════════ */
+function switchSTA(staId, el) {
+  document.querySelectorAll('#staTabRow .viz-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  ['sta180','sta116','sta240','sta300','sta060'].forEach(id => {
+    const el2 = document.getElementById('sta-' + id);
+    if (el2) el2.style.display = (id === staId) ? '' : 'none';
+  });
+}
+
+/* ════════════════════════════════
+   TREND DAM SWITCHING
+════════════════════════════════ */
+function switchTrendDam(val) {
+  const dams = ['bringinsila','meninting','tiusuntuk','pandanduri','bintangbano'];
+  dams.forEach(d => {
+    const el = document.getElementById('trend-dam-' + d);
+    if (el) el.style.display = (d === val) ? '' : 'none';
+  });
+}
+
+/* ════════════════════════════════
+   ALERT FILTER
+════════════════════════════════ */
+function filterAlerts(type, btn) {
+  document.querySelectorAll('.alert-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const rows = document.querySelectorAll('#alertList .alert-row');
+  let visible = 0;
+  rows.forEach(row => {
+    const sev  = row.dataset.severity || '';
+    const read = row.dataset.read || '';
+    let show = false;
+    if (type === 'all')    show = true;
+    else if (type === 'kritis')  show = (sev === 'kritis');
+    else if (type === 'warning') show = (sev === 'warning');
+    else if (type === 'unread')  show = (read === 'unread');
+    row.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  const badge = document.getElementById('alertCountBadge');
+  if (badge) badge.textContent = visible + ' Alert';
+}
+
+function handleAlert(btn) {
+  const row = btn.closest('.alert-row');
+  if (!row) return;
+  row.dataset.read = 'read';
+  // Remove "Belum Dibaca" badge inside this row
+  const unreadBadge = row.querySelector('.badge-red');
+  if (unreadBadge && unreadBadge.textContent.includes('Belum')) unreadBadge.remove();
+  btn.textContent = '✓ Ditangani';
+  btn.classList.remove('danger');
+  btn.disabled = true;
+  btn.style.opacity = '0.5';
+}
+
+function markAllRead() {
+  document.querySelectorAll('#alertList .alert-row').forEach(row => {
+    row.dataset.read = 'read';
+    const unreadBadge = row.querySelector('.badge-red');
+    if (unreadBadge && unreadBadge.textContent.includes('Belum')) unreadBadge.remove();
+    const handleBtn = row.querySelector('.btn.danger');
+    if (handleBtn) { handleBtn.textContent = '✓ Ditangani'; handleBtn.classList.remove('danger'); handleBtn.disabled = true; handleBtn.style.opacity = '0.5'; }
+  });
+  // Update the filter count labels
+  document.querySelectorAll('.alert-filter-btn').forEach(b => {
+    if (b.textContent.includes('Belum')) b.textContent = 'Belum Dibaca (0)';
+  });
+}
 
 function showPage(name) {
   try {

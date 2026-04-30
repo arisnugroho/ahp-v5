@@ -438,13 +438,13 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 .chart-controls { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
 .chart-stat-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 14px; }
 .chart-stat { background: var(--surface2); border-radius: 8px; padding: 10px 14px; }
-.chart-stat-label { font-size: 10px; color: var(--text3); margin-bottom: 3px; }
-.chart-stat-val { font-size: 16px; font-weight: 600; font-family: 'DM Mono', monospace; letter-spacing: -0.02em; }
+.chart-stat-label { font-size: 12px; color: var(--text3); margin-bottom: 4px; font-weight: 500; }
+.chart-stat-val { font-size: 18px; font-weight: 700; font-family: 'DM Mono', monospace; letter-spacing: -0.02em; }
 
 /* Cross section viz */
 .viz-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-top: 16px; }
 .viz-tabs { display: flex; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--border); }
-.viz-tab { padding: 5px 12px; border-radius: 6px; font-size: 11.5px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text3); transition: all var(--transition); }
+.viz-tab { padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; border: 1px solid var(--border); background: transparent; color: var(--text3); transition: all var(--transition); font-weight: 500; }
 .viz-tab:hover { border-color: var(--border2); color: var(--text2); }
 .viz-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
 .sensor-tooltip {
@@ -513,7 +513,8 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 .alert-filter-btn { padding: 6px 16px; border-radius: 20px; font-size: 13px; cursor: pointer; border: 1px solid var(--border); background: var(--surface2); color: var(--text2); transition: all var(--transition); font-weight: 500; }
 .alert-filter-btn:hover { border-color: var(--border2); }
 .alert-filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-.alert-row { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.alert-row { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--border); transition: background var(--transition); }
+.alert-row:hover { background: var(--surface2); }
 .alert-row:last-child { border-bottom: none; }
 .alert-severity { width: 6px; border-radius: 3px; align-self: stretch; flex-shrink: 0; }
 .alert-body { flex: 1; }
@@ -538,6 +539,8 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 .w-full { width: 100%; }
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+.manual-layout { display: grid; grid-template-columns: 380px 1fr; gap: 16px; align-items: start; }
 
 /* ══════════════════════════════════════════
    IMPROVEMENT: SIDEBAR OVERLAY (MOBILE)
@@ -653,6 +656,8 @@ textarea.form-control { resize: vertical; min-height: 80px; }
   .pos-grid { grid-template-columns: repeat(2, 1fr); }
   .grid-2 { grid-template-columns: 1fr; }
   .grid-3 { grid-template-columns: 1fr 1fr; }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .manual-layout { grid-template-columns: 1fr; }
   .chart-stat-row { grid-template-columns: repeat(2, 1fr); }
 }
 
@@ -697,6 +702,7 @@ textarea.form-control { resize: vertical; min-height: 80px; }
   .pos-grid { grid-template-columns: 1fr !important; }
   .grid-2 { grid-template-columns: 1fr !important; }
   .grid-3 { grid-template-columns: 1fr !important; }
+  .grid-4 { grid-template-columns: 1fr 1fr !important; }
   .chart-stat-row { grid-template-columns: repeat(2, 1fr); }
   .form-grid { grid-template-columns: 1fr; }
 
@@ -2299,7 +2305,7 @@ textarea.form-control { resize: vertical; min-height: 80px; }
       <!-- ══════════════ PAGE: MANUAL ══════════════ -->
       <div class="page" id="page-manual">
         <div class="breadcrumb"><a onclick="showPage('dashboard')">Dashboard</a><span>›</span><strong>Input Data Manual</strong></div>
-        <div style="display:grid;grid-template-columns:380px 1fr;gap:16px;align-items:start">
+        <div class="manual-layout">
           <div class="card">
             <div class="card-header">
               <div class="card-title">Form Pembacaan Manual</div>
